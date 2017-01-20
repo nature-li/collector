@@ -14,7 +14,7 @@
             <directory>src/main/bin</directory>
             <outputDirectory>/bin</outputDirectory>
             <includes>
-                <include>tool.sh</include>
+                <include>service.sh</include>
             </includes>
         </fileSet>
         <fileSet>
