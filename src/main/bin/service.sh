@@ -28,7 +28,9 @@ for i in "$APP_HOME_LIB"/*.jar; do
 done
 
 # set JVM options
-JAVA_OPTS="-Dlog4j.properties=${APP_HOME_CONFIG}/log4j.properties"
+JAVA_OPTS=""
+JAVA_OPTS=${JAVA_OPTS}"-DAPP_HOME=${APP_HOME} "
+JAVA_OPTS=${JAVA_OPTS}"-Dlog4j.properties=${APP_HOME_CONFIG}/log4j.properties "
 
 # get process pid
 JPS_ID=0
@@ -40,6 +42,20 @@ check_pid() {
         JPS_ID=`echo ${java_ps} | awk '{print $1}'`
     else
         JPS_ID=0
+    fi
+}
+
+# start process foreground
+debug() {
+    check_pid
+
+    if [ ${JPS_ID} -ne 0 ]; then
+        echo "============================================="
+        echo "warn: ${APP_MAIN_CLASS} already started! (pid=${JPS_ID})"
+        echo "============================================="
+    else
+        echo "Starting $APP_MAIN_CLASS foreground..."
+        ${JAVA_HOME}/bin/java ${JAVA_OPTS} -classpath ${CLASSPATH} ${APP_MAIN_CLASS}
     fi
 }
 
@@ -116,6 +132,9 @@ info() {
 }
 
 case "$1" in
+    'debug')
+        debug
+        ;;
     'start')
         start
         ;;
@@ -133,6 +152,6 @@ case "$1" in
         info
         ;;
    *)
-        echo "Usage: $0 {start|stop|restart|status|info}"
+        echo "Usage: $0 {debug|start|stop|restart|status|info}"
         exit 1
 esac
