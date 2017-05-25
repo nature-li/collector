@@ -26,4 +26,4 @@ TARGET=${ROOT}/target
 tar -xzvf ${TARGET}/${APP_NAME}-${APP_VERSION}-bin.tar.gz -C ${TARGET}
 
 # make rpm package
-sh rpm/rpm-build.sh rpm/m-engine-collector.spec
+sh ${ROOT}/rpm/rpm-build.sh ${ROOT}/rpm/m-engine-collector.spec
