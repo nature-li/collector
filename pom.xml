@@ -15,6 +15,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5.4</version>
                 <configuration>
+                    <!--for jar-->
                     <archive>
                         <manifest>
                             <mainClass>com.xxx.collector.Collector</mainClass>
@@ -23,6 +24,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <!--for tar.gz-->
                     <descriptors>
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
                     </descriptors>
